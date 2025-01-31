@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
+import { ReactNode } from "react";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const roboto = Roboto({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-roboto",
+  display: "swap",
+  weight: "100",
 });
 
 export const metadata: Metadata = {
@@ -19,15 +17,30 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" className={`${roboto.variable} tracking-normal`}>
+      <body className={`flex flex-col min-h-screen bg-gray-50`}>
+        <header className="w-full bg-white shadow-md p-4 fixed top-0 left-0 z-50">
+          <a
+            href="/"
+            className="max-w-7xl mx-auto flex justify-between items-center"
+          >
+            <h1 className="text-2xl font-semibold text-gray-800">
+              Country Info
+            </h1>
+          </a>
+        </header>
+
+        <main className="flex-1 flex flex-col items-center justify-center mt-[64px]">
+          {children}
+        </main>
+
+        <footer className="w-full bg-gray-800 text-white text-center p-4">
+          <p>
+            &copy; {new Date().getFullYear()} Country Info. All rights reserved.
+          </p>
+        </footer>
       </body>
     </html>
   );
